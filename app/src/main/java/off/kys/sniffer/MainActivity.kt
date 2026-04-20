@@ -3,8 +3,6 @@ package off.kys.sniffer
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import cafe.adriel.voyager.navigator.Navigator
 import off.kys.sniffer.data.AdBlocker
@@ -19,9 +17,7 @@ class MainActivity : ComponentActivity() {
                 AdBlocker.loadList()
             }
             StreamSnifferTheme {
-                Surface(color = MaterialTheme.colorScheme.background) {
-                    Navigator(BrowserScreen())
-                }
+                Navigator(BrowserScreen())
             }
         }
     }

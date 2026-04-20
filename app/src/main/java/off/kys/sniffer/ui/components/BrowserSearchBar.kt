@@ -2,7 +2,6 @@ package off.kys.sniffer.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
@@ -33,11 +32,13 @@ fun BrowserSearchBar(
             onValueChange = onUrlChange,
             modifier = Modifier
                 .fillMaxWidth()
-                .statusBarsPadding()
                 .padding(8.dp),
             placeholder = { Text(stringResource(R.string.search_or_type_url)) },
             leadingIcon = {
-                Icon(painterResource(R.drawable.round_search_24), contentDescription = null)
+                Icon(
+                    painter = painterResource(R.drawable.round_search_24),
+                    contentDescription = null
+                )
             },
             trailingIcon = {
                 if (urlInput.isNotEmpty()) {
