@@ -1,7 +1,6 @@
 package off.kys.sniffer.ui.components
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -30,7 +29,9 @@ fun BrowserSearchBar(
     canGoBack: Boolean,
     canGoForward: Boolean,
     onBack: () -> Unit,
-    onForward: () -> Unit
+    onForward: () -> Unit,
+    popupsEnabled: Boolean,
+    onTogglePopups: () -> Unit
 ) {
     Surface(tonalElevation = 3.dp) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -51,7 +52,7 @@ fun BrowserSearchBar(
                 value = urlInput,
                 onValueChange = onUrlChange,
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .weight(1f)
                     .padding(8.dp),
                 placeholder = { Text(stringResource(R.string.search_or_type_url)) },
                 leadingIcon = {
@@ -61,11 +62,24 @@ fun BrowserSearchBar(
                     )
                 },
                 trailingIcon = {
-                    if (urlInput.isNotEmpty()) {
-                        IconButton(onClick = { onUrlChange("") }) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        if (urlInput.isNotEmpty()) {
+                            IconButton(onClick = { onUrlChange("") }) {
+                                Icon(
+                                    painter = painterResource(R.drawable.round_clear_24),
+                                    contentDescription = null
+                                )
+                            }
+                        }
+
+                        IconButton(onClick = onTogglePopups) {
                             Icon(
-                                painter = painterResource(R.drawable.round_clear_24),
-                                contentDescription = stringResource(R.string.clear)
+                                painter = painterResource(
+                                    if (popupsEnabled) R.drawable.round_web_24
+                                    else R.drawable.round_block_24
+                                ),
+                                contentDescription = stringResource(R.string.toggle_popups),
+                                tint = if (popupsEnabled) MaterialTheme.colorScheme.primary else Color.Gray
                             )
                         }
                     }

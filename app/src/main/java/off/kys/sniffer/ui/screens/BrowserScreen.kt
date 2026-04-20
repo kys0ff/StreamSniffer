@@ -37,6 +37,7 @@ class BrowserScreen : Screen {
         var webView by remember { mutableStateOf<WebView?>(null) }
         var canGoBack by remember { mutableStateOf(false) }
         var canGoForward by remember { mutableStateOf(false) }
+        var popupsEnabled by remember { mutableStateOf(false) }
 
         LaunchedEffect(key1 = Unit) {
             currentUrl.discard()
@@ -60,7 +61,9 @@ class BrowserScreen : Screen {
                     canGoBack = canGoBack,
                     canGoForward = canGoForward,
                     onBack = { webView?.goBack() },
-                    onForward = { webView?.goForward() }
+                    onForward = { webView?.goForward() },
+                    popupsEnabled = popupsEnabled,
+                    onTogglePopups = { popupsEnabled = !popupsEnabled }
                 )
             },
             floatingActionButton = {
@@ -79,6 +82,7 @@ class BrowserScreen : Screen {
                     canGoBack = updatedWebView.canGoBack()
                     canGoForward = updatedWebView.canGoForward()
                 },
+                popupsEnabled = popupsEnabled,
                 onStreamFound = { if (!capturedUrls.contains(it)) capturedUrls.add(it) },
                 onProgressChanged = { loadingValue = (it / 100).toFloat() }
             )

@@ -8,4 +8,10 @@
     <string name="streams">Streams</string>
     <string name="source">Source: %1$s</string>
     <string name="no_streams">No streams detected yet.</string>
+    <string name="download_with_adm">Download with ADM</string>
+    <string name="watch_in_mpvkt">Watch in mpvKt</string>
+    <string name="adm">ADM</string>
+    <string name="play">Play</string>
+    <string name="sources_found">%1$d sources found</string>
+    <string name="toggle_popups">Toggle Popups</string>
 </resources>

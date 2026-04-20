@@ -16,7 +16,8 @@ fun BrowserBody(
     loadingValue: Float,
     onWebViewUpdate: (WebView) -> Unit,
     onStreamFound: (String) -> Unit,
-    onProgressChanged: (Int) -> Unit
+    onProgressChanged: (Int) -> Unit,
+    popupsEnabled: Boolean
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         if (loadingValue < 1f) {
@@ -28,6 +29,7 @@ fun BrowserBody(
         key(currentUrl) {
             SnifferWebView(
                 modifier = Modifier.fillMaxSize(),
+                popupsEnabled = popupsEnabled,
                 url = currentUrl,
                 onViewUpdate = onWebViewUpdate,
                 onStreamFound = onStreamFound,
