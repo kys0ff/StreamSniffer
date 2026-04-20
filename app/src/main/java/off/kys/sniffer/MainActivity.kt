@@ -3,24 +3,24 @@ package off.kys.sniffer
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.LaunchedEffect
+import cafe.adriel.voyager.navigator.Navigator
+import off.kys.sniffer.data.AdBlocker
+import off.kys.sniffer.ui.screens.BrowserScreen
 import off.kys.sniffer.ui.theme.StreamSnifferTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
+            LaunchedEffect(key1 = Unit) {
+                AdBlocker.loadList()
+            }
             StreamSnifferTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-
+                Surface(color = MaterialTheme.colorScheme.background) {
+                    Navigator(BrowserScreen())
                 }
             }
         }

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Stream Sniffer</string>
+    <string name="copy">Copy</string>
+    <string name="detected_streams">Detected Streams</string>
+    <string name="sniffer_browser">Sniffer Browser</string>
+    <string name="search_or_type_url">Search or type URL</string>
+    <string name="clear">Clear</string>
+    <string name="streams">Streams</string>
+    <string name="source">Source: %1$s</string>
 </resources>
