@@ -1,5 +1,6 @@
 package off.kys.sniffer.ui.screens
 
+import android.webkit.WebView
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
@@ -33,10 +34,16 @@ class BrowserScreen : Screen {
         var currentUrl by remember { mutableStateOf("https://www.google.com") }
         val focusManager = LocalFocusManager.current
         var loadingValue by remember { mutableFloatStateOf(0f) }
+        var webView by remember { mutableStateOf<WebView?>(null) }
+        var canGoBack by remember { mutableStateOf(false) }
+        var canGoForward by remember { mutableStateOf(false) }
 
         LaunchedEffect(key1 = Unit) {
             currentUrl.discard()
             showSheet.discard()
+            webView.discard()
+            canGoBack.discard()
+            canGoForward.discard()
         }
 
         Scaffold(
@@ -49,7 +56,11 @@ class BrowserScreen : Screen {
                         currentUrl = sanitized
                         urlInput = sanitized
                         focusManager.clearFocus()
-                    }
+                    },
+                    canGoBack = canGoBack,
+                    canGoForward = canGoForward,
+                    onBack = { webView?.goBack() },
+                    onForward = { webView?.goForward() }
                 )
             },
             floatingActionButton = {
@@ -63,7 +74,11 @@ class BrowserScreen : Screen {
                 modifier = Modifier.padding(contentInsets),
                 currentUrl = currentUrl,
                 loadingValue = loadingValue,
-                onUrlChanged = { currentUrl = it },
+                onWebViewUpdate = { updatedWebView ->
+                    webView = updatedWebView
+                    canGoBack = updatedWebView.canGoBack()
+                    canGoForward = updatedWebView.canGoForward()
+                },
                 onStreamFound = { if (!capturedUrls.contains(it)) capturedUrls.add(it) },
                 onProgressChanged = { loadingValue = (it / 100).toFloat() }
             )

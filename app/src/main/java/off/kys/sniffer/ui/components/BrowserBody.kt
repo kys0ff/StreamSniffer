@@ -1,5 +1,6 @@
 package off.kys.sniffer.ui.components
 
+import android.webkit.WebView
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +14,7 @@ fun BrowserBody(
     modifier: Modifier = Modifier,
     currentUrl: String,
     loadingValue: Float,
-    onUrlChanged: (String) -> Unit,
+    onWebViewUpdate: (WebView) -> Unit,
     onStreamFound: (String) -> Unit,
     onProgressChanged: (Int) -> Unit
 ) {
@@ -28,7 +29,7 @@ fun BrowserBody(
             SnifferWebView(
                 modifier = Modifier.fillMaxSize(),
                 url = currentUrl,
-                onUrlChanged = onUrlChanged,
+                onViewUpdate = onWebViewUpdate,
                 onStreamFound = onStreamFound,
                 onProgressChanged = onProgressChanged
             )
