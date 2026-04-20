@@ -23,12 +23,11 @@ import off.kys.sniffer.ui.components.StreamFab
 import off.kys.sniffer.ui.utils.discard
 import off.kys.sniffer.ui.viewmodels.BrowserViewModel
 
-class BrowserScreen(
-    private val viewModel: BrowserViewModel = AppContainer.browserViewModel
-) : Screen {
+class BrowserScreen : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
+        val viewModel: BrowserViewModel = AppContainer.browserViewModel
         val state by viewModel.uiState.collectAsState()
 
         val focusManager = LocalFocusManager.current
@@ -70,6 +69,9 @@ class BrowserScreen(
                         canBack = updatedWebView.canGoBack(),
                         canForward = updatedWebView.canGoForward()
                     )
+                    if (updatedWebView.url != state.currentUrl) {
+                        viewModel.onUrlInputChange(updatedWebView.url.orEmpty())
+                    }
                 },
                 popupsEnabled = state.popupsEnabled,
                 onStreamFound = viewModel::addCapturedUrl,

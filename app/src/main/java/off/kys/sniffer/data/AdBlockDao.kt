@@ -16,6 +16,9 @@ interface AdBlockDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(domains: List<BlockedDomain>)
 
+    @Query("SELECT domain FROM blocked_domains")
+    suspend fun getAllDomains(): List<String>
+
     @Query("DELETE FROM blocked_domains")
     suspend fun clearAll()
 }

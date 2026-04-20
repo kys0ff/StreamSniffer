@@ -2,6 +2,7 @@ package off.kys.sniffer.ui.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
@@ -34,7 +35,10 @@ fun BrowserSearchBar(
     onTogglePopups: () -> Unit
 ) {
     Surface(tonalElevation = 3.dp) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier.statusBarsPadding(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             IconButton(onClick = onBack, enabled = canGoBack) {
                 Icon(
                     painter = painterResource(R.drawable.round_arrow_back_24),
